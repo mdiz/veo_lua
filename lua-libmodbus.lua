@@ -22,6 +22,7 @@ local dev=mb.new_rtu ("/dev/ttyUSB0", 9600, "n", 8, 1)
 print(dev:get_byte_timeout())
 print(dev:get_response_timeout())
 print(dev)
+print("\n\n")
 
 dev:set_debug()
 ok, err = dev:connect()
@@ -87,7 +88,7 @@ end
 
 local base_address = 0x3FB
 local regs, err
-regs, err = dev:read_input_registers(base_address, 0x3FC)
+regs, err = dev:read_input_registers(base_address, 8)
 if not regs then error("read failed: " .. err) end
 print('read_input_registers 32bit Float Hex')
 for r,v in ipairs(regs) do
