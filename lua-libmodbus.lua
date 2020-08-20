@@ -6,7 +6,7 @@
 
 mb = require("libmodbus")
 print("using libmodbus runtime version: ", mb.version())
-print("using lua-libmodbus compiled against libmodbus: ", mb.VERSION_STRING)
+print("using lua-libmodbus compiled against libmodbus: ", mb.VERSION_STRING.."\n\n")
 
 
 -- ********* SET COMMPORT ********* 
@@ -21,7 +21,7 @@ local dev=mb.new_rtu ("/dev/ttyUSB0", 9600, "n", 8, 1)
 --stopbits defaults to 1
 print(dev:get_byte_timeout())
 print(dev:get_response_timeout())
-print(dev)
+print(dev.."\n\n")
 
 dev:set_debug()
 ok, err = dev:connect()
@@ -52,7 +52,7 @@ Integer Registers
 
 
 
-print("*********Context Methods - 32 Bit Float Testing Without Offset*********")
+print("*********Context Methods - 32 Bit Float Testing Without Offset*********\n\n")
 
 local base_address = 1019
 local regs, err
@@ -60,7 +60,7 @@ regs, err = dev:read_registers(base_address, 8)
 if not regs then error("read failed: " .. err) end
 print('read_registers 32bit Float Dec')
 for r,v in ipairs(regs) do
-	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d)",
+	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d)\n",
 		r, r, r + base_address - 1, r + base_address -1, v, v))
 end
 
@@ -70,7 +70,7 @@ regs, err = dev:read_registers(base_address, 8)
 if not regs then error("read failed: " .. err) end
 print('read_registers 32bit Float Hex')
 for r,v in ipairs(regs) do
-	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d)",
+	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d\n)",
 		r, r, r + base_address - 1, r + base_address -1, v, v))
 end
 
@@ -81,7 +81,7 @@ regs, err = dev:read_input_registers(base_address, 8)
 if not regs then error("read failed: " .. err) end
 print('read_input_registers 32bit Float Dec')
 for r,v in ipairs(regs) do
-	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d)",
+	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d\n)",
 		r, r, r + base_address - 1, r + base_address -1, v, v))
 end
 
@@ -91,7 +91,7 @@ regs, err = dev:read_input_registers(base_address, 0x3FC)
 if not regs then error("read failed: " .. err) end
 print('read_input_registers 32bit Float Hex')
 for r,v in ipairs(regs) do
-	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d)",
+	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d\n\n)",
 		r, r, r + base_address - 1, r + base_address -1, v, v))
 end
 
@@ -99,37 +99,37 @@ end
 
 
 
-print("*********Functions - 32 Bit Float Testing Without Offset*********")
+print("*********Functions - 32 Bit Float Testing Without Offset*********\n\n")
 
 local regs, err
 regs, err=mb.get_f32(1019,1020)
 if not regs then error("read failed: " .. err) end
 print(err)
-print("get_f32 32bit Float Dec = "..regs)
+print("get_f32 32bit Float Dec = "..regs.."\n")
 
 local regs, err
 regs, err=mb.get_f32(0x3FB,0x3FC)
 if not regs then error("read failed: " .. err) end
 print(err)
-print("get_f32 32bit Float Hex = "..regs)
+print("get_f32 32bit Float Hex = "..regs.."\n")
 
 local regs, err
 regs, err=mb.get_f32le(1019,1020)
 if not regs then error("read failed: " .. err) end
 print(err)
-print("get_f32le 32bit Float Reverse Dec = "..regs)
+print("get_f32le 32bit Float Reverse Dec = "..regs.."\n")
 
 local regs, err
 regs, err=mb.get_f32le(0x3FB,0x3FC)
 if not regs then error("read failed: " .. err) end
 print(err)
-print("get_f32le 32bit Float Reverse Hex = "..regs)
+print("get_f32le 32bit Float Reverse Hex = "..regs.."\n\n")
 
 
 
 
 
-print("32 Bit Float Testing With Offset")
+print("32 Bit Float Testing With Offset\n\n")
 
 local regs, err
 regs, err=mb.get_f32(1018,1019)
@@ -141,18 +141,18 @@ local regs, err
 regs, err=mb.get_f32(0x3FA,0x3FB)
 if not regs then error("read failed: " .. err) end
 print(err)
-print("get_f32 32bit Float Hex = "..regs)
+print("get_f32 32bit Float Hex = "..regs.."\n\n")
 
 local regs, err
 regs, err=mb.get_f32le(1018,1019)
 if not regs then error("read failed: " .. err) end
 print(err)
-print("get_f32le 32bit Float Reverse Dec = "..regs)
+print("get_f32le 32bit Float Reverse Dec = "..regs.."\n\n")
 
 local regs, err
 regs, err=mb.get_f32le(0x3FA,0x3FB)
 if not regs then error("read failed: " .. err) end
 print(err)
-print("3get_f32le 2bit Float Reverse Hex = "..regs)
+print("3get_f32le 2bit Float Reverse Hex = "..regs.."\n\n")
 
 
