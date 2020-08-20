@@ -120,7 +120,6 @@ git config ––global user.email “email_address”
 
 
 
-
 lsusb --list USB connected devices
 dmesg --ran this and got a LOT of info.  Found where it said "FTDI USB Serial Device converter now attached to ttyUSB0"
 so use /dev/ttyUSB0 as USB device
