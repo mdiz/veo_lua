@@ -66,7 +66,7 @@ end
 
 local base_address = 0x3FB
 local regs, err
-regs, err = dev:read_registers(base_address, 0x3FC)
+regs, err = dev:read_registers(base_address, 8)
 if not regs then error("read failed: " .. err) end
 print('read_registers 32bit Float Hex')
 for r,v in ipairs(regs) do
