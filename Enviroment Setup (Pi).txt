@@ -116,6 +116,16 @@ Still got message that it requires lua5.1
 
 Reboot
 
+Install git
+sudo apt update
+sudo apt install git
+git clone repository_url
+git config ––global user.name “github_username”
+git config ––global user.email “email_address”
+
+
+
+
 lsusb --list USB connected devices
 dmesg --ran this and got a LOT of info.  Found where it said "FTDI USB Serial Device converter now attached to ttyUSB0"
 so use /dev/ttyUSB0 as USB device
