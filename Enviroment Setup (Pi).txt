@@ -1,0 +1,151 @@
+Tools:
+Raspberry Pi Imager v1.4
+Install Raspberry Pi OS (32 bit) Release Date 2020-05-27
+	Setup Local, Network...
+	Update Software
+	Enable SSH, VNC, SPI...
+
+
+
+Laptop Tools
+	Raspberry Pi Imager v1.4 https://www.raspberrypi.org/downloads/
+	Putty https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+	VNC Viewer https://www.realvnc.com/en/connect/download/viewer/
+
+
+
+http://www.ladeezfirstmedia.com/2014/04/14/tutorial-up-and-running-with-raspberry-pi-and-lua/ --discusses IOT and some tools that might be intresting.
+
+https://www.thegeekstuff.com/2010/09/linux-file-system-structure/ --information on linux folder structure
+
+
+i did - installing luarocks
+https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+
+
+
+
+
+
+8/19/20 1pm
+
+
+Image 8gb Micro SD
+Raspberry Pi OS (32-bit) with desktop
+Image with desktop based on Debian Buster
+Version:May 2020
+Release date:2020-05-27
+Kernel version:4.19
+Size:1128 MB
+
+
+To configure from commandline
+sudo raspi-config --config system
+sudo nano /boot/config.txt
+passwd --change password
+sudo apt-get update --update OS
+sudo apt-get upgrade
+sudo ifconfig --print network info
+more /etc/network/interfaces --print network config file
+sudo nano /etc/network/interfaces --edit network config file
+sudo nano /etc/hostname --set network name
+sudo nano /etc/hosts
+
+Ensure that you have development tools installed on your system, otherwise run the command below to install them.
+-$ sudo apt install build-essential libreadline-dev
+
+Remove lua 5.1
+https://howtoinstall.co/en/ubuntu/trusty/lua5.1?action=remove
+sudo apt-get remove lua5.1
+sudo apt-get autoremove lua5.1
+
+Reboot
+
+Install lua 5.3.5
+https://www.lua.org/download.html
+https://www.lua.org/manual/5.4/readme.html
+From /home/pi
+-$ curl -R -O http://www.lua.org/ftp/lua-5.3.5.tar.gz
+-$ tar -zxf lua-5.3.5.tar.gz
+-$ cd lua-5.3.5
+-$ make linux test
+-$ sudo make install
+
+Reboot
+
+Install LuaRocks
+From /home/pi
+https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
+-$ wget https://luarocks.org/releases/luarocks-3.3.1.tar.gz
+-$ tar zxpf luarocks-3.3.1.tar.gz
+-$ cd luarocks-3.3.1
+Run ./configure --with-lua-include=/usr/local/include. (This will attempt to detect your installation of Lua. If you get any error messages, see the section "Customizing your settings", below.)
+This still found a trace of 5.1
+So, i used this to force 5.3.  Output said it found 5.3.  Check location and did find lua 5.3.5 at /usr/local/bin
+-$ ./configure --lua-version=5.3.5
+-$ make 
+-$ sudo make install
+
+Reboot
+
+Install libmodbus
+  https://libmodbus.org/
+  https://github.com/stephane/libmodbus
+-$ wget https://libmodbus.org/releases/libmodbus-3.1.6.tar.gz
+-$ tar zxf libmodbus-3.1.6.tar.gz
+-$ cd libmodbus-3.1.6
+-$ ./configure
+-$ make
+-$ sudo make install
+
+Reboot
+
+Install lua-libmodbus
+http://etactica.github.io/lua-libmodbus/ -- Manual
+https://luarocks.org/modules/karlp/lua-libmodbus
+https://github.com/etactica/lua-libmodbus
+Downloaded and unziped but could not configure file
+		-$ wget https://github.com/etactica/lua-libmodbus/archive/master.zip
+		-$ unzip master.zip
+		-$ cd lua-libmodbus-master
+		make LUAPKG=lua-5.3
+		sudo make install
+This worked and can call require("libmodbus") from lua command command line
+-$ sudo luarocks install lua-libmodbus
+Still got message that it requires lua5.1
+
+Reboot
+
+lsusb --list USB connected devices
+dmesg --ran this and got a LOT of info.  Found where it said "FTDI USB Serial Device converter now attached to ttyUSB0"
+so use /dev/ttyUSB0 as USB device
+
+Modbus is 0 based so, depending on driver, will need to subtract 1 from register number listed to get proper response value
+
+Modbus Register Addressing
+	There are a few points about Modbus register addressing that can cause confusion.
+	● In the Modbus specification, register numbers are documented as “one based”, but transmitted as “zero based”. For example, we document that EnergySum appears at address 1001.
+	If you are using any Modbus software or Modbus aware device, you should use “1001” as the
+	register address. However, if you are writing your own low-level Modbus driver or firmware,
+	you will need to subtract one from the register number when creating the Modbus frame (or 
+	Operating Instructions 33
+	packet), so the actual register number that appears on the RS-485 bus will be “1000” (or in
+	hexadecimal, 0x03E8).
+	● A common Modbus convention adds the function code as a leading digit on the register
+	number, so a register like EnergySum (1001) would be documented as 41001. All input registers (function code 04) would use the form 4xxxx, while holding registers (function code 03)
+	would use the form 3xxxx. The WattNode meter treats holding registers and input registers
+	interchangeably, and does not use this convention. If your Modbus software expects a leading “3” or “4”, either will work for most registers, and use “3” for configuration registers.
+
+
+This setup package.path
+/usr/local/share/lua/5.3/?.lua;
+/usr/local/share/lua/5.3/?/init.lua;
+/usr/local/lib/lua/5.3/?.lua;
+/usr/local/lib/lua/5.3/?/init.lua;
+./?.lua;
+./?/init.lua
+
+
+
+Where do lua scripta go
+Need good lua editor for raspberry pi
