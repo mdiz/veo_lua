@@ -27,7 +27,7 @@ print("\n\n")
 dev:set_debug()
 ok, err = dev:connect()
 if not ok then error("Couldn't connect: " .. err) end
-
+print("\n\n")
 
 -- ********* SET SLAVE ********* 
 
