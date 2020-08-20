@@ -1,1 +1,1 @@
-os.execute("git pull")
+os.execute("sudo git pull")
