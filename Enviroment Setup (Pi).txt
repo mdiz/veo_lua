@@ -19,11 +19,6 @@ http://www.ladeezfirstmedia.com/2014/04/14/tutorial-up-and-running-with-raspberr
 https://www.thegeekstuff.com/2010/09/linux-file-system-structure/ --information on linux folder structure
 
 
-i did - installing luarocks
-https://github.com/luarocks/luarocks/wiki/Installation-instructions-for-Unix
-
-
-
 
 
 
