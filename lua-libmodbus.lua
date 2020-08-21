@@ -279,26 +279,28 @@ print("*********Functions - 16 Bit Integer Testing Without Offset*********\n\n")
 local regs, err
 regs, err=mb.get_s16(1622)
 if not regs then error("read failed: " .. err) end
-print("get_s16 16 bit signed Dec = "..regs.." - ".. err.."\n")
+print("get_s16 16 bit signed Dec = "..regs.."\n")
+if err then print(err) end
 
 local regs, err
 regs, err=mb.get_s16(0x656)
 if not regs then error("read failed: " .. err) end
-print("get_s16 16 bit signed Hex = "..regs.." - ".. err.."\n\n")
-
+print("get_s16 16 bit signed Hex = "..regs.."\n\n")
+if err then print(err) end
 
 print("*********Functions - 16 Bit Integer Testing With Offset*********\n\n")
 
 local regs, err
 regs, err=mb.get_s16(1621)
 if not regs then error("read failed: " .. err) end
-print("get_s16 16 bit signed Dec = "..regs.." - ".. err.."\n")
+print("get_s16 16 bit signed Dec = "..regs.."\n")
+if err then print(err) end
 
 local regs, err
 regs, err=mb.get_s16(0x655)
 if not regs then error("read failed: " .. err) end
-print("get_s16 16 bit signed Hex = "..regs.." - ".. err.."\n\n")
-
+print("get_s16 16 bit signed Hex = "..regs.."\n\n")
+if err then print(err) end
 
 
 print("*********Functions - 16 Bit Integer Testing*********\n\n")
