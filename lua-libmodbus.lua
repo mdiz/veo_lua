@@ -214,7 +214,7 @@ print("*********Functions - 32 Bit Float Testing With Offset*********\n\n")
 local regs, err
 regs, err=mb.get_f32(1018,1019)
 if not regs then error("read failed: " .. err) end
-print("get_f32 32bit Float Dec = "..regs)
+print("get_f32 32bit Float Dec = "..regs.."\n")
 
 local regs, err
 regs, err=mb.get_f32(0x3FA,0x3FB)
@@ -298,3 +298,48 @@ local regs, err
 regs, err=mb.get_s16(0x655)
 if not regs then error("read failed: " .. err) end
 print("get_s16 16 bit signed Hex = "..regs.."\n\n")
+
+
+
+print("*********Functions - 16 Bit Integer Testing*********\n\n")
+
+
+local base_address = 1622
+local regs, err
+regs, err = dev:read_registers(base_address, 1)
+if not regs then error("read failed: " .. err) end
+print('read_registers 16bit Integer No Offset')
+for r,v in ipairs(regs) do
+	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d)\n",
+		r, r, r + base_address - 1, r + base_address -1, v, v))
+end
+
+local base_address = 1622
+local regs, err
+regs, err = dev:read_input_registers(base_address, 1)
+if not regs then error("read failed: " .. err) end
+print('read_input_registers 16bit Integer No Offset')
+for r,v in ipairs(regs) do
+	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d\n)",
+		r, r, r + base_address - 1, r + base_address -1, v, v))
+end
+
+local base_address = 1621
+local regs, err
+regs, err = dev:read_registers(base_address, 1)
+if not regs then error("read failed: " .. err) end
+print('read_registers 16bit Integer Offset')
+for r,v in ipairs(regs) do
+	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d)\n",
+		r, r, r + base_address - 1, r + base_address -1, v, v))
+end
+
+local base_address = 1621
+local regs, err
+regs, err = dev:read_input_registers(base_address, 1)
+if not regs then error("read failed: " .. err) end
+print('read_input_registers 16bit Integer Offset')
+for r,v in ipairs(regs) do
+	print(string.format("register (offset %d) %d: %d (%#x): %#x (%d\n)",
+		r, r, r + base_address - 1, r + base_address -1, v, v))
+end
