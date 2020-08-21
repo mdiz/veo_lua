@@ -276,31 +276,38 @@ print("get_u32le 32bit unsigned reverse Hex = "..regs.."\n\n")
 --1622 CurrentIntScale 20000 
 print("*********Functions - 16 Bit Integer Testing Without Offset*********\n\n")
 
-local regs, err
+
+local regs, err, first
 regs, err=mb.get_s16(1622)
 if not regs then error("read failed: " .. err) end
 print("get_s16 16 bit signed Dec = "..regs.."\n")
 if err then print(err) end
+if first then print(first) end
 
-local regs, err
+local regs, err, first
 regs, err=mb.get_s16(0x656)
 if not regs then error("read failed: " .. err) end
 print("get_s16 16 bit signed Hex = "..regs.."\n\n")
 if err then print(err) end
+if first then print(first) end
+
 
 print("*********Functions - 16 Bit Integer Testing With Offset*********\n\n")
 
-local regs, err
-regs, err=mb.get_s16(1621)
+
+local regs, err, first
+first, regs, err=mb.get_s16(1621)
 if not regs then error("read failed: " .. err) end
 print("get_s16 16 bit signed Dec = "..regs.."\n")
 if err then print(err) end
+if first then print(first) end
 
-local regs, err
+local regs, err, first
 regs, err=mb.get_s16(0x655)
 if not regs then error("read failed: " .. err) end
 print("get_s16 16 bit signed Hex = "..regs.."\n\n")
 if err then print(err) end
+if first then print(first) end
 
 
 print("*********Functions - 16 Bit Integer Testing*********\n\n")
