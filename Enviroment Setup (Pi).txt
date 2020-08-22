@@ -182,3 +182,36 @@ Modbus Register Addressing
 
 
 Need good lua editor for raspberry pi
+
+
+
+None of the steps above worked for me on my XPS 15 7590. I kept having problems booting Windows.
+
+The easy and simple way to get it work was:
+
+Run bcdedit /set {current} safeboot minimal in Windows as adminstrator
+Reboot into BIOS setup and change storage controller to AHCI.
+Continue to boot in Windows safemode and run bcdedit /deletevalue {current} safeboot as administrator
+Reboot back into Windows
+And from here, Windows was booting without any problems with AHCI.
+
+
+
+
+Thanks a lot @yoshz85!!! Almost worked in a Dell Inspiron 5584 with windows 10 Home single language version 2004. My recommended modifications are:
+
+Use powershell as admin instead of the run box. The reason is that run doesn’t confirm if the procedure has been done correctly, it just disappears, so you don’t know if it’s ok or not.
+Then the command that works is bcdedit /set safeboot minimal and again bcdedit /deletevalue safeboot . Don’t use the {} in my case. You will know which works for you in powershell.
+Note: in my case the controller used after the procedure is NVM Express standard. Now on to install ubuntu.
+
+
+
+1. Run Command Prompt as Admin
+2. Invoke a Safe Mode boot with the command: bcdedit /set {current} safeboot minimal
+3. Restart the PC and enter your BIOS during bootup.
+4. Change from IDE to AHCI mode then Save & Exit.
+5. Windows 10 will launch in Safe Mode.
+6. Right click the Window icon and select to run the Command Prompt in Admin mode from among the various options.
+7. Cancel Safe Mode booting with the command: bcdedit /deletevalue {current} safeboot
+8. Restart your PC once more and this time it will boot up normally but with AHCI mode activated.
+9. Bask in the reflected glory of being a total Windows 10 God 
