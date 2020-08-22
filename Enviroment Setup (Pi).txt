@@ -18,8 +18,13 @@ http://www.ladeezfirstmedia.com/2014/04/14/tutorial-up-and-running-with-raspberr
 
 https://www.thegeekstuff.com/2010/09/linux-file-system-structure/ --information on linux folder structure
 
+https://ctlsys.com/wp-content/uploads/2016/10/WNC-Modbus-Manual-V18c.pdf --WattNode Manual
 
 
+Pi editors:
+https://chrome.google.com/webstore/detail/caret/fljalecfjciodhpcledpamjachpmelml?hl=en --text editor for Pi like sublime t
+https://code.visualstudio.com/
+https://foicica.com/textadept/
 
 
 8/19/20 1pm
@@ -118,6 +123,37 @@ git clone https://github.com/mdiz/veo_lua.git
 git config ––global user.name “github_username”
 git config ––global user.email “email_address”
 
+This setup resulted in this package.path
+/usr/local/share/lua/5.3/?.lua;
+/usr/local/share/lua/5.3/?/init.lua;
+/usr/local/lib/lua/5.3/?.lua;
+/usr/local/lib/lua/5.3/?/init.lua;
+./?.lua;
+./?/init.lua
+
+Where do lua scripta go?
+I put them in /usr/local/share/lua/5.3/.
+Info seems to suggest they should go in opt
+
+8/21/20 lua-libmodbus is working well but can not read 32 bit floating values.
+Going to try python with a pipe to lua
+
+Install Python
+Install uModbus - looks like good docs and eludes to 32 bit floating ability
+Other package to consider is pymodbus.  Docs are extensive and very confusing.  It's a huge package with lots of capability.
+
+Note from python docs regarding package installations:
+Note Due to the way most Linux distributions are handling the Python 3 migration, Linux users using the system Python without creating a virtual environment first should replace the python command in this tutorial with python3 and the pip command with pip3 --user. Do not run any of the commands in this tutorial with sudo: if you get a permissions error, come back to the section on creating virtual environments, set one up, and then continue with the tutorial as written.
+
+
+
+
+
+
+
+
+
+Information Collected:
 
 
 lsusb --list USB connected devices
@@ -141,15 +177,8 @@ Modbus Register Addressing
 	interchangeably, and does not use this convention. If your Modbus software expects a leading “3” or “4”, either will work for most registers, and use “3” for configuration registers.
 
 
-This setup package.path
-/usr/local/share/lua/5.3/?.lua;
-/usr/local/share/lua/5.3/?/init.lua;
-/usr/local/lib/lua/5.3/?.lua;
-/usr/local/lib/lua/5.3/?/init.lua;
-./?.lua;
-./?/init.lua
 
 
 
-Where do lua scripta go
+
 Need good lua editor for raspberry pi
