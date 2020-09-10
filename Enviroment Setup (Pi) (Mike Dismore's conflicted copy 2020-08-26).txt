@@ -128,15 +128,13 @@ git clone https://github.com/mdiz/veo_lua.git
 git config ––global user.name “github_username”
 git config ––global user.email “email_address”
 
-This setup resulted in this package.path on Pi
+This setup resulted in this package.path
 /usr/local/share/lua/5.3/?.lua;
 /usr/local/share/lua/5.3/?/init.lua;
 /usr/local/lib/lua/5.3/?.lua;
 /usr/local/lib/lua/5.3/?/init.lua;
 ./?.lua;
 ./?/init.lua
-
-
 
 Where do lua scripta go?
 I put them in /usr/local/share/lua/5.3/.
@@ -155,7 +153,7 @@ Note Due to the way most Linux distributions are handling the Python 3 migration
 
 
 
-******** From Here I Worked from a Umbutu Install on Laptop **********
+******** From Hear I Worked from a Umbutu Install on Laptop **********
 
 
 
@@ -167,38 +165,21 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sou
 sudo apt-get update
 sudo apt-get install sublime-text
 
-Install pip
-$ sudo apt install python3-pip
-
-Install Lua 5.3
-~$ sudo apt install lua5.3  
-This setup resulted in this package.path on Umbutu
-/usr/local/share/lua/5.3/?.lua;
-/usr/local/share/lua/5.3/?/init.lua;
-/usr/local/lib/lua/5.3/?.lua;
-/usr/local/lib/lua/5.3/?/init.lua;
-/usr/share/lua/5.3/?.lua;
-/usr/share/lua/5.3/?/init.lua;
-./?.lua;
-./?/init.lua
 
 
 
 
 
+https://pymodbus.readthedocs.io/en/latest/source/example/synchronous_client.html -- examples of pymodbus that worked
 
-https://pymodbus.readthedocs.io/en/latest/readme.html
-Install pyModbus
-~$ sudo pip3 install  -U pymodbus
-~$ sudo pip3 install -U pymodbus[twisted]
-~$ sudo pip3 install -U pymodbus[tornado]
-~$ pip3 install click prompt_toolkit --upgrade	OR  ~$ pip install -U pymodbus[repl]
-pip install -U pymodbus[repl]
+
+
+
 
 
 
 **********************************************************************************************
-Misc Information Collected:
+Information Collected:
 
 
 lsusb --list USB connected devices
