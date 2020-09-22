@@ -183,7 +183,7 @@ This setup resulted in this package.path on Umbutu
 ./?/init.lua
 
 
-
+Python 3.8.2 already installed
 
 
 
@@ -197,8 +197,40 @@ pip install -U pymodbus[repl]
 
 
 
+
+.dropbox-dist$ ~/.dropbox-dist/dropboxd
+
+
+
+sudo rmmod ftdi_sio
+sudo rmmod usbserial
+sudo modprobe usbserial vendor=0x0403 product=0x6001
+
+
+
+https://pymodbus.readthedocs.io/en/latest/source/library/pymodbus.html?highlight=32%20bit%20float%20#pymodbus.payload.BinaryPayloadDecoder.decode_32bit_float
+
+https://ctlsys.com/wp-content/uploads/2016/10/WNC-Modbus-Manual-V18c.pdf
+
+
+
+Before serial communications can be used in Unbuntu must set user to dialout group
+https://www.usconverters.com/downloads/support/Installing-FTDI-VCP-Drivers-Linux.pdf
+groups mikedismore
+sudo gpasswd -a mikedismore dialout
+groups mikedismore
+
+
+
+
 **********************************************************************************************
 Misc Information Collected:
+
+
+(01) Coils Registers (0XXXX)
+(02) Input Status (1XXXX)
+(03) Holding Registers (4XXXX)
+(04) Input Registers (3XXXX)
 
 
 lsusb --list USB connected devices
@@ -232,4 +264,76 @@ Firmware v1.483
 
 
 
+Configure your devices to use the Pi-hole as their DNS server      │ 
+     │ using:                                                             │ 
+     │                                                                    │ 
+     │ IPv4:        192.168.86.19                                         │ 
+     │ IPv6:        Not Configured                                        │ 
+     │                                                                    │ 
+     │ If you set a new IP address, you should restart the Pi.            │ 
+     │                                                                    │ 
+     │ The install log is in /etc/pihole.                                 │ 
+     │                                                                    │ 
+     │ View the web interface at http://pi.hole/admin or                  │ 
+     │ http://192.168.86.19/admin                                         │ 
+     │                                                                    │ 
+     │ Your Admin Webpage login password is fpi4o2dG 
 
+
+
+
+If then else
+enable * input +   (NOT enable) * Input2
+ if input == 1 then 
+ 	return input
+ else
+ 	return input2
+
+
+if then else
+enable * input +   (NOT enable) * Self
+if input == 1 then 
+	return input
+else
+	return previous value
+
+enable * input +   (NOT enable) * 22.5
+
+IfValue * IfReturnValue + (NOT IfValue) * ElseReturnValue
+
+
+
+--Admin
+	SiteID
+Unit
+UnitType
+CoolStages
+HeatStages
+IsHeatPump
+HPControl
+GasHeat
+RmtTempUsed
+DegUnits
+SpaceTmpOffset
+Address
+
+--User
+SpaceTP
+RetTP
+SupTP
+FanStat
+TemplateID
+ComFail
+DevResets
+PacketError
+CRCError
+SerialNum
+CoolBacSP
+HeatBacSP
+Address
+
+--LCD Display
+FanFailure
+CoolingFailure
+HeatingFailure
+InsufficientCapacity

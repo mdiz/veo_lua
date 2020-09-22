@@ -9,97 +9,6 @@ from collections import OrderedDict
 import logging
 import logging.handlers as Handlers
 
-def decode_float(list):
-	length=len(list)
-	for i, val in enumerate(list): 
-		if i * 2 < length:
-			i=i*2
-			y=i+1
-			tmpReg=[list[i],list[y]]
-			decoder = BinaryPayloadDecoder.fromRegisters(tmpReg,byteorder=Endian.Big,wordorder=Endian.Little)
-			myValue=decoder.decode_32bit_float()
-			print(myValue)
-
-
-
-
-
-
-
-
-#log.debug("\n\nReading Basic Register List - Floating Point" + "-" * 60 + "\n")
-#result = client.read_input_registers(1018, 4, unit=2)
-#decoder = BinaryPayloadDecoder.fromRegisters(result.registers,byteorder=Endian.Big,wordorder=Endian.Little)
-#myValue=decoder.decode_32bit_float()
-#print(myValue)
-
-#124.45491027832031
-#59626
-#17144
-
-#registers=[59626,17144,0,0]
-registers=[59626,17144,50000,17000]
-decoder = BinaryPayloadDecoder.fromRegisters(registers,byteorder=Endian.Big,wordorder=Endian.Little)
-myValue=decoder.decode_32bit_float()
-#print(myValue)
-
-#registers=[59626,17144]
-
-
-
-"""
-
-length=len(registers)
-for i, val in enumerate(registers): 
-	if i * 2 < length:
-		i=i*2
-		y=i+1
-		tmpReg=[registers[i],registers[y]]
-		decoder = BinaryPayloadDecoder.fromRegisters(tmpReg,byteorder=Endian.Big,wordorder=Endian.Little)
-		myValue=decoder.decode_32bit_float()
-		print(myValue)
-
-
-
-
-"""
-
-
-
-
-
-
-#for v in registers:
-	#print(v)	
-	#tmpReg=[registers[b],registers[l]]
-	#print(tmpReg)
-	#tmpReg=registers[::2]
-	#print(tmpReg)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-mySerial=5
-TCP=5
 
 
 #https://pymodbus.readthedocs.io/en/latest/source/example/modbus_logging.html
@@ -116,59 +25,82 @@ log.setLevel(logging.DEBUG)
 
 
 
-#Test for serial comm device
-if mySerial != 0:
-	import serial.tools.list_ports
-	comport=[comport.device for comport in serial.tools.list_ports.comports()]
-	if comport:
-		#log.debug(comport)
-		log.debug(comport[0])
-	else:
-		log.debug("No Comport Device Found")
 
-	#from pymodbus.transaction import ModbusRtuFramer
-	import pymodbus.exceptions
 
-if mySerial == 2:
+Serial=2
+if Serial == 1:
 	from pymodbus.client.sync import ModbusSerialClient as ModbusClient
-	client = ModbusClient(method='rtu', port='/dev/ttyUSB1', timeout=1, baudrate=9600)
+	client = ModbusClient(method='rtu', port='/dev/ttyUSB0', timeout=1, baudrate=9600)
 	client.connect()
 	log.debug(client.state)
+
 
 	log.debug(client.connect)
 	#bound method ModbusSerialClient.connect of <ModbusSerialClient at 0x7fd2e3814eb0 socket=Serial<id=0x7fd2e3814a00, open=True>(port='/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1, timeout=1, xonxoff=False, rtscts=False, dsrdtr=False), method=rtu, timeout=1
 
-	log.debug("\n\nReading Basic Register List - Floating Point" + "-" * 60 + "\n")
-	result = client.read_input_registers(1018, 8, unit=2)
-	#decoder = BinaryPayloadDecoder.fromRegisters(result.registers,byteorder=Endian.Big,wordorder=Endian.Little)
-	#myValue=decoder.decode_32bit_float()
-	#print(myValue)
-
-	decode_float(result.registers)
-
-	client.close()
-
-
-if mySerial == 5:
-	from pymodbus.client.sync import ModbusSerialClient as ModbusClient
-	client = ModbusClient(method='rtu', port='/dev/ttyUSB1', timeout=1, baudrate=9600)
-	client.connect()
-	log.debug(client.state)
-
-	log.debug(client.connect)
-	#bound method ModbusSerialClient.connect of <ModbusSerialClient at 0x7fd2e3814eb0 socket=Serial<id=0x7fd2e3814a00, open=True>(port='/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1, timeout=1, xonxoff=False, rtscts=False, dsrdtr=False), method=rtu, timeout=1
 
 	log.debug("\n\nReading Basic Register List - Floating Point" + "-" * 60 + "\n")
-	result = client.read_input_registers(199, 6, unit=5)
+	result = client.read_input_registers(1018, 2, unit=2)
 	decoder = BinaryPayloadDecoder.fromRegisters(result.registers,byteorder=Endian.Big,wordorder=Endian.Little)
 	myValue=decoder.decode_32bit_float()
-	#print(myValue)
+	print(myValue)
 
-	decode_float(result.registers)
+	"""
+	decoded = OrderedDict([
+		('32float', decoder.decode_32bit_float()),
+		])
+	for name, value in iteritems(decoded):
+		print(name,value)
+	"""
 
 	client.close()
 
 
+if Serial == 2:
+	from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+	client = ModbusClient(method='rtu', port='/dev/ttyUSB0', timeout=1, baudrate=9600)
+	client.connect()
+	log.debug(client.state)
+
+
+	log.debug(client.connect)
+	#bound method ModbusSerialClient.connect of <ModbusSerialClient at 0x7fd2e3814eb0 socket=Serial<id=0x7fd2e3814a00, open=True>(port='/dev/ttyUSB0', baudrate=9600, bytesize=8, parity='N', stopbits=1, timeout=1, xonxoff=False, rtscts=False, dsrdtr=False), method=rtu, timeout=1
+
+
+	log.debug("\n\nReading Basic Register List - Floating Point" + "-" * 60 + "\n")
+	result = client.read_input_registers(103, 2, unit=5)
+	decoder = BinaryPayloadDecoder.fromRegisters(result.registers,byteorder=Endian.Big,wordorder=Endian.Little)
+	myValue=decoder.decode_32bit_float()
+	print(myValue)
+
+	"""
+	decoded = OrderedDict([
+		('32float', decoder.decode_32bit_float()),
+		])
+	for name, value in iteritems(decoded):
+		print(name,value)
+	"""
+
+	client.close()
+
+
+
+
+
+
+import serial.tools.list_ports
+comport=[comport.device for comport in serial.tools.list_ports.comports()]
+if comport:
+	#log.debug(comport)
+	log.debug(comport[0])
+else:
+	log.debug("No Comport Device Found")
+
+#from pymodbus.transaction import ModbusRtuFramer
+import pymodbus.exceptions
+
+
+TCP=5
 if TCP == 1:
 	from pymodbus.client.sync import ModbusTcpClient as ModbusClient
 	client = ModbusClient('192.168.11.200', port=502)
